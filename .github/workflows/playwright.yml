@@ -1,0 +1,32 @@
+name: Playwright API Tests (Daily)
+
+on:
+  schedule:
+    - cron: '0 19 * * *'   # 12 AM Pakistan Time (UTC+5)
+  workflow_dispatch:        # allow manual run too
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Run API tests
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+        run: npx playwright test
