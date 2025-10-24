@@ -1,6 +1,8 @@
 name: Playwright API Tests (Daily)
 
 on:
+  push:
+    branches: [ master]
   schedule:
     - cron: '0 19 * * *'   # 12 AM Pakistan Time (UTC+5)
   workflow_dispatch:        # allow manual run too
