@@ -17,7 +17,7 @@ test.describe('POST API Test Suite ',()=>{
         const data = await response.json();
         token = `Token ${data.user.token}`;
         process.env.Token = token;
-        console.log('Obtained token:', token);
+        // console.log('Obtained token:', token);
     });
 
     test('Create Article Post API Call ', async ({ request }) => {
