@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test';
 import {faker } from '@faker-js/faker';
 const apiBaseUrl= process.env.API_BASE_URL;
-var token:string="Token "
+let token: string = "";
+
 test.describe('POST API Test Suite ',()=>{
-    test('login user Get API Token', async ({ request }) => {
+
+    test.beforeAll( async ({ request }) => {
         const response = await request.post(`${apiBaseUrl}/api/users/login`, {
             data: {
                 "user": {
@@ -12,11 +14,10 @@ test.describe('POST API Test Suite ',()=>{
                 }
             }
         });
-    const data =await response.json();
-    token+= data.user.token;
-    // console.log(response.status());
-    // console.log(token);
-
+        const data = await response.json();
+        token = `Token ${data.user.token}`;
+        process.env.Token = token;
+        // console.log('Obtained token:', token);
     });
 
     test('Create Article Post API Call ', async ({ request }) => {
@@ -30,10 +31,10 @@ test.describe('POST API Test Suite ',()=>{
         data: {
             article
         },headers:{
-            Authorization:token
+            Authorization: process.env.Token as string
         }
         });
-
+        console.log('Create article response status:', response.status());
         expect(response.status()).toEqual(201);
 
     })
