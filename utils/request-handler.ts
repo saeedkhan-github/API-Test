@@ -13,6 +13,7 @@ export class RequestHandler {
     constructor(request: APIRequestContext, apiBaseUrl: string){
         this.request = request;
         this.defaultBaseUrl = apiBaseUrl;  
+        this.baseUrl = apiBaseUrl;
     }
 
     url(url:string){
