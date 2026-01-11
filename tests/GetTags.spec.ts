@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import exp from 'constants';
+import { test, expect, request } from '@playwright/test';
 
 test('has title', async ({ request }) => {
  const response = await request.get('https://conduit-api.bondaracademy.com/api/tags');

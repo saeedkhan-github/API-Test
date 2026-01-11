@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test,request, expect } from '@playwright/test';
 import {faker } from '@faker-js/faker';
 const apiBaseUrl= process.env.API_BASE_URL;
 let token: string = "";
